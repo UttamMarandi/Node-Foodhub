@@ -5,7 +5,7 @@ const {
   createFoodItem,
   deleteSingleFoodItem,
   getSingleFoodItem,
-  patchSingleFoodItem,
+  updateSingleFoodItem,
 } = require("../controllers/foodItem");
 
 router.route("/").get(getAllFoodItems).post(createFoodItem);
@@ -13,7 +13,7 @@ router.route("/").get(getAllFoodItems).post(createFoodItem);
 router
   .route("/:id")
   .get(getSingleFoodItem)
-  .patch(patchSingleFoodItem)
+  .patch(updateSingleFoodItem)
   .delete(deleteSingleFoodItem);
 
 module.exports = router;

@@ -11,16 +11,32 @@ const createFoodItem = asyncWrapper(async (req, res) => {
   res.status(201).json(foodItem);
 });
 
-const getSingleFoodItem = () => {};
+const getSingleFoodItem = asyncWrapper(async (req, res) => {
+  const { id: foodItemId } = req.params;
+  const foodItem = await FoodItem.findOne({ _id: foodItemId });
 
-const patchSingleFoodItem = () => {};
+  if (!foodItem) {
+    return res.status(404).json({ msj: `No food item with id ${foodItemId}` });
+  }
+  res.status(200).json({ foodItem });
+});
 
-const deleteSingleFoodItem = () => {};
+const updateSingleFoodItem = asyncWrapper(async (req, res) => {});
+
+const deleteSingleFoodItem = asyncWrapper(async (req, res) => {
+  const { id: foodItemId } = req.params;
+  const deleteFoodItem = await FoodItem.findOneAndDelete({ _id: foodItemId });
+
+  if (!deleteFoodItem) {
+    return res.status(400).json({ msj: `No food item with id ${foodItemId}` });
+  }
+  res.status(200).json({ msj: "Food Item deleted", foodItem: deleteFoodItem });
+});
 
 module.exports = {
   getAllFoodItems,
   createFoodItem,
   getSingleFoodItem,
-  patchSingleFoodItem,
+  updateSingleFoodItem,
   deleteSingleFoodItem,
 };
