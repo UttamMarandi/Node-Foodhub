@@ -1,17 +1,23 @@
+//env
 require("dotenv").config();
-
-const express = require("express");
-const app = express();
 const port = process.env.PORT || 5000;
 
-const MongoConnect = require("./db/connect");
+//express
+const express = require("express");
+const app = express();
 
+const MongoConnect = require("./db/connect");
+const foodItemRouter = require("./routes/foodItem");
+
+//middleware
+app.use(express.json());
+
+//routes
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("FoodHub API");
 });
-app.post("/", (req, res) => {
-  res.send("Hello");
-});
+
+app.use("/api/v1/food", foodItemRouter);
 
 const start = async () => {
   try {
