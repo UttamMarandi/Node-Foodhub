@@ -21,7 +21,21 @@ const getSingleFoodItem = asyncWrapper(async (req, res) => {
   res.status(200).json({ foodItem });
 });
 
-const updateSingleFoodItem = asyncWrapper(async (req, res) => {});
+const updateSingleFoodItem = asyncWrapper(async (req, res) => {
+  const { id: foodItemId } = req.params;
+  const updatedFoodItem = await FoodItem.findByIdAndUpdate(
+    { _id: foodItemId },
+    req.body,
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+  if (!updatedFoodItem) {
+    return res.status(400).json({ msj: `No food Item with id ${foodItemId}` });
+  }
+  res.status(200).json({ updatedFoodItem });
+});
 
 const deleteSingleFoodItem = asyncWrapper(async (req, res) => {
   const { id: foodItemId } = req.params;
