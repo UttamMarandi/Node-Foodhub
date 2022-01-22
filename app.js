@@ -8,9 +8,30 @@ const app = express();
 
 const MongoConnect = require("./db/connect");
 const foodItemRouter = require("./routes/foodItem");
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
+const session = require("express-session");
+const cors = require("cors");
 
 //middleware
 app.use(express.json());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 //routes
 app.get("/", (req, res) => {
