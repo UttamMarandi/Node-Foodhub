@@ -1,13 +1,13 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
-const passport = require("passport");
 const res = require("express/lib/response");
 
-const passportConfig = () => {
+const passportConfig = (passport) => {
   // passport is taken as a parameter, so we have to pass a parameter when importing this module.
   passport.use(
     new localStrategy((email, password, done) => {
+      console.log("email", email);
       User.findOne({ email: email }, (err, user) => {
         if (err) {
           return res.status(400).json({ msj: "Error in passportConfig block" });
@@ -30,20 +30,19 @@ const passportConfig = () => {
       });
     })
   );
-};
-
-passport.serializeUser((user, cb) => {
-  cb(null, user.id);
-});
-
-passport.deserializeUser((id, cb) => {
-  User.findOne({ _id: id }, (err, user) => {
-    const userInformation = {
-      email: user.email,
-    };
-    cb(err, userInformation);
+  passport.serializeUser((user, cb) => {
+    cb(null, user.id);
   });
-});
+
+  passport.deserializeUser((id, cb) => {
+    User.findOne({ _id: id }, (err, user) => {
+      const userInformation = {
+        email: user.email,
+      };
+      cb(err, userInformation);
+    });
+  });
+};
 
 module.exports = passportConfig;
 

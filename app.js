@@ -35,6 +35,9 @@ app.use(
 
 app.use(cookieParser(process.env.SESSION_SECRET));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //routes
 app.get("/", (req, res) => {
   res.send("FoodHub API");
