@@ -12,9 +12,7 @@ const genHashPassword = (password) => {
 const verifyPassword = (password, hash) => {
   const verify = bcrypt.compare(password, hash); //verify is a boolean
 
-  return {
-    verify,
-  };
+  return verify;
 };
 
 module.exports = { genHashPassword, verifyPassword };

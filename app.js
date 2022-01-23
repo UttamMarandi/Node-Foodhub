@@ -37,6 +37,7 @@ app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(passport.initialize());
 app.use(passport.session());
+require("./controllers/passport");
 
 //routes
 app.get("/", (req, res) => {
