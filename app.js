@@ -11,6 +11,7 @@ const foodItemRouter = require("./routes/foodItem");
 const authRouter = require("./routes/auth");
 
 const passport = require("passport");
+const usePassport = require("./controllers/passport");
 const passportLocal = require("passport-local");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
@@ -34,9 +35,7 @@ app.use(
 );
 
 app.use(cookieParser(process.env.SESSION_SECRET));
-
-app.use(passport.initialize());
-app.use(passport.session());
+usePassport(app);
 
 //routes
 app.get("/", (req, res) => {
