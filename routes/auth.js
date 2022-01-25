@@ -6,6 +6,7 @@ const {
   userProfile,
   userLogout,
 } = require("../controllers/auth");
+const { isAdminstratorMiddleware } = require("../middleware/authMiddleware");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);

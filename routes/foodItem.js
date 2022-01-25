@@ -7,9 +7,10 @@ const {
   getSingleFoodItem,
   updateSingleFoodItem,
 } = require("../controllers/foodItem");
+const { isAdminstratorMiddleware } = require("../middleware/authMiddleware");
 
-router.route("/").get(getAllFoodItems).post(createFoodItem);
-
+router.route("/").get(getAllFoodItems);
+router.post("/", isAdminstratorMiddleware, createFoodItem);
 router
   .route("/:id")
   .get(getSingleFoodItem)
