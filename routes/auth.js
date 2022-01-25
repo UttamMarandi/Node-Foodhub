@@ -5,6 +5,7 @@ const {
   loginUser,
   userProfile,
   userLogout,
+  allUsers,
 } = require("../controllers/auth");
 const { isAdminstratorMiddleware } = require("../middleware/authMiddleware");
 
@@ -12,5 +13,6 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", userLogout);
 router.get("/userprofile", userProfile);
+router.get("/allusers", isAdminstratorMiddleware, allUsers);
 
 module.exports = router;

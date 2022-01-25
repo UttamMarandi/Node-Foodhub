@@ -54,8 +54,13 @@ const userLogout = asyncWrapper(async (req, res) => {
   res.status(200).json({ msg: "User logged out" });
 });
 
+const allUsers = asyncWrapper(async (req, res) => {
+  const allusers = await User.find({ isAdmin: false });
+  res.status(200).json({ allusers, nbHits: allusers.length });
+});
+
 const userProfile = asyncWrapper(async (req, res) => {
-  res.status(200).json({ msg: "User Profile" });
+  res.status(200).json({ msg: "User Profile", user: req.user });
 });
 
 module.exports = {
@@ -63,4 +68,5 @@ module.exports = {
   loginUser,
   userLogout,
   userProfile,
+  allUsers,
 };
