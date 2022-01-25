@@ -17,12 +17,10 @@ module.exports = (app) => {
         try {
           const user = await User.findOne({ email }).lean();
           if (!user) {
-            // req.flash("error", "此信箱尚未註冊");
             return done(null, false);
           }
           const isMatch = await bcrypt.compare(password, user.password);
           if (!isMatch) {
-            // req.flash("error", "信箱或密碼錯誤");
             return done(null, false);
           }
           return done(null, user);

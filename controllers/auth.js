@@ -1,7 +1,6 @@
 const User = require("../models/User");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
-require("./passportConfig")(passport);
 
 const asyncWrapper = require("../middleware/async");
 
@@ -49,6 +48,12 @@ const loginUser = asyncWrapper(async (req, res, next) => {
   })(req, res, next);
 });
 
+const userLogout = asyncWrapper(async (req, res) => {
+  req.logout();
+  // res.redirect("/")
+  res.status(200).json({ msg: "User logged out" });
+});
+
 const userProfile = asyncWrapper(async (req, res) => {
   res.status(200).json({ msg: "User Profile" });
 });
@@ -56,5 +61,6 @@ const userProfile = asyncWrapper(async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  userLogout,
   userProfile,
 };
