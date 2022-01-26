@@ -40,3 +40,6 @@ const foodItemSchema = new mongoose.Schema(
 module.exports = mongoose.model("FoodItem", foodItemSchema);
 
 // maxLenth is not defined for type array
+
+// for categories front_end,
+// get the _id of each category and store it in category id as string
