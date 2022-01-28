@@ -9,6 +9,7 @@ const app = express();
 const MongoConnect = require("./db/connect");
 const foodItemRouter = require("./routes/foodItem");
 const authRouter = require("./routes/auth");
+const categoryRouter = require("./routes/category");
 
 const passport = require("passport");
 const usePassport = require("./controllers/passport");
@@ -44,6 +45,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/food", foodItemRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/category", categoryRouter);
 
 const start = async () => {
   try {
