@@ -9,6 +9,8 @@ const {
   getMenuUser,
 } = require("../controllers/menu");
 
+const { isUser } = require("../middleware/authMiddleware");
+
 router.route("/").post(createMenu).get(getAllMenus);
 
 router.route("/:id").delete(deleteMenu).get(getSingleMenu);
@@ -16,6 +18,6 @@ router.route("/:id").delete(deleteMenu).get(getSingleMenu);
 router.route("/user").post(createMenuUser);
 // user can get only it's menus so no getAllUsersMenu
 
-router.route("/user/:id").get(getMenuUser);
+router.route("/user/:id").get(isUser, getMenuUser);
 
 module.exports = router;

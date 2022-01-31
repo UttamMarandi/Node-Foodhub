@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
 
+const menuSchema = new mongoose.Schema({
+  menuName: {
+    type: String,
+    required: [true, "Please provide menu Name"],
+  },
+  menuItems: [String],
+});
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -22,6 +30,7 @@ const userSchema = new mongoose.Schema({
   profileImg: {
     type: String,
   },
+  userMenu: menuSchema,
 });
 
 module.exports = mongoose.model("User", userSchema);
