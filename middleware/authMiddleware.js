@@ -25,7 +25,6 @@ const isAdminstratorMiddleware = (req, res, next) => {
 const isUser = (req, res, next) => {
   const { user } = req;
   if (user) {
-    console.log("user", user);
     next();
   } else if (typeof req.user == "undefined") {
     res.status(400).json({ msj: "Please log in" });
