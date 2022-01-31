@@ -19,6 +19,12 @@ const createMenuUser = asyncWrapper(async (req, res) => {
   res.status(400).json({ menu });
 });
 
+const getMenuUser = asyncWrapper(async (req, res) => {
+  const { id } = req.params;
+  const menu = await UserMenu.find({ userId: id });
+  res.status(400).json({ menu });
+});
+
 const getSingleMenu = asyncWrapper(async (req, res) => {
   const { id: menuId } = req.params;
   const singleMenu = await Menu.find({ _id: menuId });
@@ -40,4 +46,5 @@ module.exports = {
   getAllMenus,
   getSingleMenu,
   createMenuUser,
+  getMenuUser,
 };
