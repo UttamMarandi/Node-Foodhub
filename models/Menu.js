@@ -5,9 +5,7 @@ const menuSchema = mongoose.Schema({
     type: String,
     required: [true, "Menu Name required"],
   },
-  menuItems: {
-    type: Array,
-  },
+  menuItems: [String],
 });
 
 module.exports = mongoose.model("Menu", menuSchema);
