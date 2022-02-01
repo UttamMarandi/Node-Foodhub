@@ -17,22 +17,28 @@ const getAllMenus = asyncWrapper(async (req, res) => {
 const createMenuUser = asyncWrapper(async (req, res) => {
   // req should contain the id of the logged in user
   const { userMenu } = req.body;
+  const { user } = req.body;
+  const { id: userId } = req.params;
+  console.log("req.body.id", user);
+  if (req.body.userId === userId) {
+    if (userMenu) {
+      const { id: userId } = req.params;
+      const menu = await User.findByIdAndUpdate({ _id: userId }, req.body, {
+        runValidators: true,
+      });
+      const { userMenu } = menu;
+      res.status(201).json({ msj: "Menu added", userMenu: userMenu });
 
-  if (userMenu) {
-    const { id: userId } = req.params;
-    const menu = await User.findByIdAndUpdate({ _id: userId }, req.body, {
-      runValidators: true,
-      new: true,
-    });
-    res.status(201).json({ msj: "Menu added", user: menu });
-
-    if (!menu) {
-      res
-        .status(400)
-        .json({ msj: "Unfortunatly cannot add Menu, Please try again" });
+      if (!menu) {
+        res
+          .status(400)
+          .json({ msj: "Unfortunatly cannot add Menu, Please try again" });
+      }
+    } else if (!userMenu) {
+      res.status(400).json({ msj: "Please provide menu details" });
     }
-  } else if (!userMenu) {
-    res.status(400).json({ msj: "Please provide menu details" });
+  } else {
+    res.status(400).json({ msj: "Unauthorised: Invalid user" });
   }
 });
 // menu will return the entire user
