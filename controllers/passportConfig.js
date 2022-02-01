@@ -7,7 +7,6 @@ const passportConfig = (passport) => {
   // passport is taken as a parameter, so we have to pass a parameter when importing this module.
   passport.use(
     new localStrategy((email, password, done) => {
-      console.log("email", email);
       User.findOne({ email: email }, (err, user) => {
         if (err) {
           return res.status(400).json({ msj: "Error in passportConfig block" });
