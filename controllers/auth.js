@@ -1,13 +1,20 @@
 const User = require("../models/User");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
+const {
+  registerValidation,
+  loginValidation,
+} = require("../validations/authentication");
 
 const asyncWrapper = require("../middleware/async");
 
 const registerUser = asyncWrapper(async (req, res) => {
   User.findOne({ email: req.body.email }, async (err, doc) => {
     // doc is the document which satisfies the filter
-
+    const { value, error } = registerValidation.validate(req.body);
+    if (error) {
+      return res.status(400).json({ msj: error.details[0].message });
+    }
     if (err) {
       return res.status(400).json({ msg: "Error in registerUser 1st block" });
     }
@@ -24,6 +31,10 @@ const registerUser = asyncWrapper(async (req, res) => {
 });
 
 const loginUser = asyncWrapper(async (req, res, next) => {
+  const { value, error } = loginValidation.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msj: error.details[0].message });
+  }
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return res

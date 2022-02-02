@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const foodValidator = Joi.object({
+const createFoodItemValidator = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
   categories: Joi.array().items(Joi.string()),
@@ -12,5 +12,5 @@ const foodValidator = Joi.object({
 }).options({ abortEarly: false });
 
 module.exports = {
-  foodValidator,
+  createFoodItemValidator,
 };
