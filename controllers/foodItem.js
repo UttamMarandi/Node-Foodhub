@@ -1,5 +1,6 @@
 const FoodItem = require("../models/FoodItem");
 const asyncWrapper = require("../middleware/async");
+const { foodValidator } = require("../validations/foodItem");
 
 const getAllFoodItems = asyncWrapper(async (req, res) => {
   const foodItems = await FoodItem.find({});
@@ -7,6 +8,16 @@ const getAllFoodItems = asyncWrapper(async (req, res) => {
 });
 
 const createFoodItem = asyncWrapper(async (req, res) => {
+  const { value, error } = foodValidator.validate(req.body); //joi validation
+  // joi validation works before entering to model
+  //so it provides extra security
+
+  if (error) {
+    return res.status(400).json(error.details[0].message);
+  }
+
+  console.log("value", value);
+  console.log("error", error);
   const foodItem = await FoodItem.create(req.body);
   res.status(201).json(foodItem);
 });
