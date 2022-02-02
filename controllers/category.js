@@ -1,7 +1,12 @@
 const Category = require("../models/Category");
 const asyncWrapper = require("../middleware/async");
+const { categoryValidation } = require("../validations/category");
 
 const createCategory = asyncWrapper(async (req, res) => {
+  const { value, error } = categoryValidation.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msj: error.details[0].message });
+  }
   const category = await Category.create(req.body);
   res.status(201).json(category);
 });
