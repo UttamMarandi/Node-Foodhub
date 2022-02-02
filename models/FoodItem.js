@@ -21,7 +21,7 @@ const foodItemSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide food calories"],
     },
-    isFavavourite: {
+    isFavourite: {
       type: Boolean,
       default: false,
     },
