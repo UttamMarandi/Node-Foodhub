@@ -9,9 +9,12 @@ const {
   getMenuUser,
 } = require("../controllers/menu");
 
-const { isUser } = require("../middleware/authMiddleware");
+const {
+  isUser,
+  isAdminstratorMiddleware,
+} = require("../middleware/authMiddleware");
 
-router.route("/").post(createMenu).get(getAllMenus);
+router.route("/").post(isAdminstratorMiddleware, createMenu).get(getAllMenus);
 
 router.route("/:id").delete(deleteMenu).get(getSingleMenu);
 

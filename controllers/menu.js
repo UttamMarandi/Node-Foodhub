@@ -2,9 +2,17 @@ const asyncWrapper = require("../middleware/async");
 const Menu = require("../models/Menu");
 const UserMenu = require("../models/UserMenu");
 const User = require("../models/User");
+const {
+  createMenuValidation,
+  createMenuUserValidation,
+} = require("../validations/menu");
 
 // only admin can create these menu. For user specific menu check createMenuUser
 const createMenu = asyncWrapper(async (req, res) => {
+  const { value, error } = createMenuValidation.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msj: error.details[0].message });
+  }
   const menu = await Menu.create(req.body);
   res.status(201).json({ menu });
 });
@@ -16,6 +24,10 @@ const getAllMenus = asyncWrapper(async (req, res) => {
 
 const createMenuUser = asyncWrapper(async (req, res) => {
   // req should contain the id of the logged in user
+  const { value, error } = createMenuUserValidation.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msj: error.details[0].message });
+  }
   const { userMenu } = req.body;
   const { user } = req.body;
   const { id: userId } = req.params;

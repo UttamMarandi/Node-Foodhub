@@ -21,7 +21,7 @@ const deleteCategory = asyncWrapper(async (req, res) => {
   const deleteItem = await Category.findByIdAndDelete({
     _id: deleteCategoryId,
   });
-  res.status(200).json({ msJ: "Category delted", item: deleteItem });
+  res.status(200).json({ msg: "Category delted", item: deleteItem });
 });
 
 module.exports = {
