@@ -19,3 +19,7 @@ Foodhub is an app to deliver food to the doorstep from nearby hotels and restaur
 [Joi](https://github.com/sideway/joi)
 
 [Bcrypt](https://www.npmjs.com/package/bcryptjs)
+
+# Preview : Postman
+
+[![foodhub_postman](assets/images/foodhub_postman.png)](https://youtube.com)
