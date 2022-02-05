@@ -10,13 +10,13 @@ const isAdminstratorMiddleware = (req, res, next) => {
       }
       if (doc?.isAdmin === false) {
         return res
-          .status(400)
+          .status(401)
           .json({ msj: "Unauthorized, Please login as admin" });
       }
     });
   }
   if (typeof req.user == "undefined") {
-    res.status(400).json({ msj: "Please login As admin" });
+    res.status(401).json({ msj: "Please login As admin" });
   }
 };
 
@@ -25,7 +25,7 @@ const isUser = (req, res, next) => {
   if (user) {
     next();
   } else if (typeof req.user == "undefined") {
-    res.status(400).json({ msj: "Please log in" });
+    res.status(401).json({ msj: "Please log in" });
   }
 };
 

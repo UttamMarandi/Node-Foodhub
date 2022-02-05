@@ -16,7 +16,10 @@ const {
 
 router.route("/").post(isAdminstratorMiddleware, createMenu).get(getAllMenus);
 
-router.route("/:id").delete(deleteMenu).get(getSingleMenu);
+router
+  .route("/:id")
+  .delete(isAdminstratorMiddleware, deleteMenu)
+  .get(getSingleMenu);
 
 // router.route("/user").post(createMenuUser);
 // user can get only it's menus so no getAllUsersMenu

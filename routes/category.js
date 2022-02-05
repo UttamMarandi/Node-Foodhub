@@ -11,6 +11,6 @@ router
   .route("/")
   .post(isAdminstratorMiddleware, createCategory)
   .get(getAllCategory);
-router.route("/:id").delete(deleteCategory);
+router.route("/:id").delete(isAdminstratorMiddleware, deleteCategory);
 
 module.exports = router;
