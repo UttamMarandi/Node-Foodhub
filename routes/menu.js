@@ -24,3 +24,10 @@ router.route("/:id").delete(deleteMenu).get(getSingleMenu);
 router.route("/user/:id").post(createMenuUser).get(isUser, getMenuUser);
 
 module.exports = router;
+
+// Example to set menuId in postman
+
+// pm.test("set menuId",function(){
+//     const{menu} = pm.response.json() //get the data from json
+//     pm.environment.set("menuId",menu._id) //set the data
+// })
