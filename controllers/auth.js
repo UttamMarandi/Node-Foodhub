@@ -74,10 +74,17 @@ const userProfile = asyncWrapper(async (req, res) => {
   res.status(200).json({ msg: "User Profile", user: req.user });
 });
 
+const deleteUser = asyncWrapper(async (req, res) => {
+  const { id: userId } = req.params;
+  const deletedUser = await User.findByIdAndDelete({ _id: userId });
+  res.status(200).json({ msj: "User deleted", deleteUser: deletedUser });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   userLogout,
   userProfile,
   allUsers,
+  deleteUser,
 };
