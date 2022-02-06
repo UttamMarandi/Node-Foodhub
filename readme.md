@@ -22,8 +22,4 @@ Foodhub is an app to deliver food to the doorstep from nearby hotels and restaur
 
 # Preview : Postman
 
-[![foodhub_postman](assets/images/foodhub_postman.png)](https://youtube.com)
-
-
 https://user-images.githubusercontent.com/68814910/152679255-264a33c8-6736-44e6-abd6-225d0c4770a7.mp4
-
