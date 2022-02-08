@@ -41,7 +41,8 @@ usePassport(app);
 
 //routes
 app.get("/", (req, res) => {
-  res.send("FoodHub API");
+  res.setHeader("Content-type", "text/html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.use("/api/v1/food", foodItemRouter);
