@@ -1,6 +1,6 @@
 //env
 require("dotenv").config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 //express
 const express = require("express");
@@ -25,9 +25,10 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
+    origin: "http://localhost:3000",
   })
 );
-
+// app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
